@@ -12,7 +12,10 @@ import {
     Button,
     Alert
 } from 'reactstrap'
-import { useProducts } from '../hooks/'
+import {
+    useAlert,
+    useProducts
+} from '../hooks/'
 import { createProduct } from '../reducers/actionCreator'
 import { hasChange } from '../utils'
 
@@ -28,11 +31,7 @@ function CreateProducts() {
 
     const isDisabled = hasChange(old, { title, desc, price }) || !(title && price && desc)
 
-    useEffect(() => {
-        if (successful) {
-            setTimeout(() => mergeState({ successful: false, old: { title, desc, price } }), 2000)
-        }
-    }, [successful])
+    useAlert({mergeState,successful,title,desc,price})
 
     return <Container>
         <h1>CreateProducts</h1>

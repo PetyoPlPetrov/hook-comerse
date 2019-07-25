@@ -20,7 +20,10 @@ import {
     either,
     isNil
 } from 'ramda'
-import { useProducts } from '../hooks/'
+import {
+    useAlert,
+    useProducts
+} from '../hooks/'
 import { editProduct } from '../reducers/actionCreator'
 import { hasChange } from '../utils/'
 
@@ -61,11 +64,7 @@ function EditProduct(props) {
     const change = hasChange(old, { title, desc, price })
     const isDisabled = disabled || change
 
-    useEffect(() => {
-        if (successful) {
-            setTimeout(() => mergeState({ successful: false, old: { title, desc, price } }), 2000)
-        }
-    }, [successful])
+    useAlert({mergeState,successful,title,desc,price})
 
     return <Container>
         <h1>Edit Product</h1>
