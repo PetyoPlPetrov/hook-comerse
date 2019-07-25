@@ -20,6 +20,7 @@ function CreateProducts() {
     const [{ title, desc, price, successful, old }, setState] = useState({ title: '', desc: '', price: '', old: {} })
     const [, dispatch] = useProducts()
     const mergeState = next => setState((prev) => ({ ...prev, ...next }))
+
     const onSubmit = useCallback(() => {
         dispatch(createProduct({ title, desc, price }))
         mergeState({ successful: true })
@@ -31,7 +32,6 @@ function CreateProducts() {
         if (successful) {
             setTimeout(() => mergeState({ successful: false, old: { title, desc, price } }), 2000)
         }
-
     }, [successful])
 
     return <Container>

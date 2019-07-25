@@ -37,6 +37,7 @@ function EditProduct(props) {
     const [products, dispatch] = useProducts()
     let id = parseInt(props.match.params.id)
     const mergeState = next => setState((prev) => ({ ...prev, ...next }))
+
     useEffect(() => {
 
         const productToEdit = compose(head, filter(findById(id)))(products)
@@ -57,15 +58,13 @@ function EditProduct(props) {
         dispatch(editProduct({ title, desc, price, id }))
         mergeState({ successful: true })
     }, [title, desc, price])
-
-
     const change = hasChange(old, { title, desc, price })
     const isDisabled = disabled || change
+
     useEffect(() => {
         if (successful) {
             setTimeout(() => mergeState({ successful: false, old: { title, desc, price } }), 2000)
         }
-
     }, [successful])
 
     return <Container>
