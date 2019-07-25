@@ -7,7 +7,6 @@ export const anotherReducer = (state, {type, value}) => {
         }
         case EDIT: {
 
-            console.log('EDIT from second')
             return state
         }
         default: {
