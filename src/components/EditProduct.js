@@ -25,10 +25,9 @@ import {
     useProducts
 } from '../hooks/'
 import { editProduct } from '../reducers/actionCreator'
-import { hasChange } from '../utils/'
+import { hasChange, findProductToEdit } from '../utils/'
 
 const hasProductToEdit = compose(either(isNil, isEmpty))
-const findById = id => e => e.id === id
 
 function EditProduct(props) {
     const [{ title, desc, price, error, disabled, successful, old }, setState] = useState({
@@ -41,9 +40,9 @@ function EditProduct(props) {
     let id = parseInt(props.match.params.id)
     const mergeState = next => setState((prev) => ({ ...prev, ...next }))
 
-    useEffect(() => {
+    const fillFieldsWithProductInfo = () => {
 
-        const productToEdit = compose(head, filter(findById(id)))(products)
+        const productToEdit = findProductToEdit(id,products)
 
         if (!hasProductToEdit(productToEdit)) {
             mergeState({
@@ -55,16 +54,19 @@ function EditProduct(props) {
         } else {
             mergeState({ disabled: true, error: 'No such product id' })
         }
-    }, [])
+    }
+
+    useEffect(fillFieldsWithProductInfo, [])
 
     const onSubmit = useCallback(() => {
         dispatch(editProduct({ title, desc, price, id }))
         mergeState({ successful: true })
     }, [title, desc, price])
+
     const change = hasChange(old, { title, desc, price })
     const isDisabled = disabled || change
 
-    useAlert({mergeState,successful,title,desc,price})
+    useAlert({ mergeState, successful, title, desc, price })
 
     return <Container>
         <h1>Edit Product</h1>
