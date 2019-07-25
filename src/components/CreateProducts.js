@@ -1,6 +1,7 @@
 import React, {
     useState,
-    useCallback
+    useCallback,
+    useEffect
 } from 'react'
 import {
     Container,
@@ -11,18 +12,27 @@ import {
     Button,
     Alert
 } from 'reactstrap'
-import { useProducts } from '../hooks/'
+import {
+    useAlert,
+    useProducts
+} from '../hooks/'
 import { createProduct } from '../reducers/actionCreator'
+import { hasChange } from '../utils'
 
 function CreateProducts() {
-    const [{ title, desc, price, successful }, setState] = useState({ title: '', desc: '', price: '' })
+    const [{ title, desc, price, successful, old }, setState] = useState({ title: '', desc: '', price: '', old: {} })
     const [, dispatch] = useProducts()
     const mergeState = next => setState((prev) => ({ ...prev, ...next }))
+
     const onSubmit = useCallback(() => {
         dispatch(createProduct({ title, desc, price }))
         mergeState({ successful: true })
-
     }, [title, desc, price])
+
+    const isDisabled = hasChange(old, { title, desc, price }) || !(title && price && desc)
+
+    useAlert({mergeState,successful,title,desc,price})
+
     return <Container>
         <h1>CreateProducts</h1>
         <Form>
@@ -42,7 +52,7 @@ function CreateProducts() {
                        name="price" id="price" placeholder="Enter product price"/>
             </FormGroup>
         </Form>
-        <Button color='primary' disabled={!(title && desc && price)} onClick={onSubmit}>Create product</Button>
+        <Button color='primary' disabled={isDisabled} onClick={onSubmit}>Create product</Button>
         {successful && <Alert color="success">
             Successful creation of product
         </Alert>}
