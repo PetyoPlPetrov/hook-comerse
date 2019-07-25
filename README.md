@@ -1,6 +1,7 @@
 # My hooks shop
  This repository represent a small shop where you can create and edit products. It use a local storage for memory purposes
-It is implemented using react hooks and ramda fp concept.
+It is implemented using react hooks and ramda fp concept. Used hooks: useReducer, useState,useEffects, useCallback. Custom hooks are
+useProducts, useAlerts.
 
 ## Setting up the project
 

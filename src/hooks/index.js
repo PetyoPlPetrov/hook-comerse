@@ -1,7 +1,6 @@
 import React, {
     useEffect,
-    useReducer,
-    useState
+    useReducer
 } from 'react'
 import { productReducer } from '../reducers/'
 

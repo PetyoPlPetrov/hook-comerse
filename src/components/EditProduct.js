@@ -13,8 +13,6 @@ import {
     Alert
 } from 'reactstrap'
 import {
-    filter,
-    head,
     compose,
     isEmpty,
     either,
@@ -24,13 +22,13 @@ import {
     useAlert,
     useProducts
 } from '../hooks/'
-import { editProduct } from '../reducers/actionCreator'
-import { hasChange, findProductToEdit } from '../utils/'
+import {editProduct} from '../reducers/actionCreator'
+import {hasChange, findProductToEdit} from '../utils/'
 
 const hasProductToEdit = compose(either(isNil, isEmpty))
 
 function EditProduct(props) {
-    const [{ title, desc, price, error, disabled, successful, old }, setState] = useState({
+    const [{title, desc, price, error, disabled, successful, old}, setState] = useState({
         title: '',
         desc: '',
         price: '',
@@ -38,11 +36,11 @@ function EditProduct(props) {
     })
     const [products, dispatch] = useProducts()
     let id = parseInt(props.match.params.id)
-    const mergeState = next => setState((prev) => ({ ...prev, ...next }))
+    const mergeState = next => setState((prev) => ({...prev, ...next}))
 
     const fillFieldsWithProductInfo = () => {
 
-        const productToEdit = findProductToEdit(id,products)
+        const productToEdit = findProductToEdit(id, products)
 
         if (!hasProductToEdit(productToEdit)) {
             mergeState({
@@ -52,38 +50,38 @@ function EditProduct(props) {
                 old: productToEdit
             })
         } else {
-            mergeState({ disabled: true, error: 'No such product id' })
+            mergeState({disabled: true, error: 'No such product id'})
         }
     }
 
     useEffect(fillFieldsWithProductInfo, [])
 
     const onSubmit = useCallback(() => {
-        dispatch(editProduct({ title, desc, price, id }))
-        mergeState({ successful: true })
+        dispatch(editProduct({title, desc, price, id}))
+        mergeState({successful: true})
     }, [title, desc, price])
 
-    const change = hasChange(old, { title, desc, price })
+    const change = hasChange(old, {title, desc, price})
     const isDisabled = disabled || change
 
-    useAlert({ mergeState, successful, title, desc, price })
+    useAlert({mergeState, successful, title, desc, price})
 
     return <Container>
         <h1>Edit Product</h1>
         <Form>
             <FormGroup>
                 <Label for="exampleEmail">Title</Label>
-                <Input onChange={({ target: { value: title } }) => mergeState({ title })} value={title} type="text"
+                <Input onChange={({target: {value: title}}) => mergeState({title})} value={title} type="text"
                        name="title" id="title" placeholder="Enter product title"/>
             </FormGroup>
             <FormGroup>
                 <Label for="exampleEmail">Description</Label>
-                <Input onChange={({ target: { value: desc } }) => mergeState({ desc })} value={desc} type="text"
+                <Input onChange={({target: {value: desc}}) => mergeState({desc})} value={desc} type="text"
                        name="desc" id="desc" placeholder="Enter product description"/>
             </FormGroup>
             <FormGroup>
                 <Label for="exampleEmail">Price</Label>
-                <Input onChange={({ target: { value: price } }) => mergeState({ price })} value={price} on type="text"
+                <Input onChange={({target: {value: price}}) => mergeState({price})} value={price} on type="text"
                        name="price" id="price" placeholder="Enter product price"/>
             </FormGroup>
         </Form>
