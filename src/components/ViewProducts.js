@@ -3,27 +3,22 @@ import {
     Container,
     Row
 } from 'reactstrap'
-import {
-    compose,
-    sortBy,
-    map,
-    prop
-} from 'ramda'
 import {useProducts} from '../hooks/'
-import Product from './Product'
+import {createProductsSortedByDate} from "../utils";
+
 
 function ViewProducts({editMode}) {
     const [products] = useProducts()
 
-    const printProducts = useCallback(() => {
-        return compose(map(prod => <Product key={prod.id} {...prod}
-                                            editMode={editMode}/>), sortBy(prop('created')))(products)
-    }, [products, editMode])
+    const printProducts = useCallback(
+        createProductsSortedByDate(editMode)
+        , [products, editMode]
+    )
 
     return <Container>
         {editMode ? <h1>Edit Products</h1> : <h1>View Products</h1>}
         <Row>
-            {printProducts()}
+            {printProducts(products)}
         </Row>
     </Container>
 }

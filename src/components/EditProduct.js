@@ -67,7 +67,7 @@ function EditProduct(props) {
     useAlert({mergeState, successful, title, desc, price})
 
     return <Container>
-        <h1>Edit Product</h1>
+        <h1>Edit a Product</h1>
         <Form>
             <FormGroup>
                 <Label>Title</Label>
