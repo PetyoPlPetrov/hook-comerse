@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, {useCallback} from 'react'
 import {
     Container,
     Row
@@ -9,14 +9,15 @@ import {
     map,
     prop
 } from 'ramda'
-import { useProducts } from '../hooks/'
+import {useProducts} from '../hooks/'
 import Product from './Product'
 
-function ViewProducts({ editMode }) {
+function ViewProducts({editMode}) {
     const [products] = useProducts()
 
     const printProducts = useCallback(() => {
-        return compose(map(prod => <Product {...prod} editMode={editMode}/>), sortBy(prop('created')))(products)
+        return compose(map(prod => <Product key={prod.id} {...prod}
+                                            editMode={editMode}/>), sortBy(prop('created')))(products)
     }, [products, editMode])
 
     return <Container>
