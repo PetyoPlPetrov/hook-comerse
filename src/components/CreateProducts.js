@@ -25,7 +25,7 @@ function CreateProducts() {
         mergeState({ successful: true })
     }, [title, desc, price])
 
-    const isDisabled = hasChange(old, { title, desc, price })
+    const isDisabled = hasChange(old, { title, desc, price }) || !(title && price && desc)
 
     useEffect(() => {
         if (successful) {
