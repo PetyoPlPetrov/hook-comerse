@@ -42,7 +42,12 @@ function EditProduct(props) {
         const productToEdit = compose(head, filter(findById(id)))(products)
 
         if (!hasProductToEdit(productToEdit)) {
-            mergeState({ title: productToEdit.title, desc: productToEdit.desc, price: productToEdit.price , old: productToEdit})
+            mergeState({
+                title: productToEdit.title,
+                desc: productToEdit.desc,
+                price: productToEdit.price,
+                old: productToEdit
+            })
         } else {
             mergeState({ disabled: true, error: 'No such product id' })
         }
@@ -53,8 +58,15 @@ function EditProduct(props) {
         mergeState({ successful: true })
     }, [title, desc, price])
 
-    const change = hasChange(old,{title,desc,price})
+
+    const change = hasChange(old, { title, desc, price })
     const isDisabled = disabled || change
+    useEffect(() => {
+        if (successful) {
+            setTimeout(() => mergeState({ successful: false, old: { title, desc, price } }), 2000)
+        }
+
+    }, [successful])
 
     return <Container>
         <h1>Edit Product</h1>

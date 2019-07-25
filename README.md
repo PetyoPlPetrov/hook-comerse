@@ -4,7 +4,7 @@ It is implemented using react hooks and ramda fp concept.
 
 ## Setting up the project
 
-1. Clone the repository on master branch(it is the default one)
+1. Clone the repository on DEVELOP branch
 
    - the library source code is located into `src` folder
 

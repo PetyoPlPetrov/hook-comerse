@@ -2,7 +2,7 @@ import React from 'react'
 import {
     Switch,
     Route,
-    Link
+    Link,
 } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import ViewProducts from './components/ViewProducts'
