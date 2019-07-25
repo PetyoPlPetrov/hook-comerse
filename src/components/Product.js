@@ -5,9 +5,9 @@ import {
     CardBody,
     CardTitle,
 } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-function Product({ title, desc, price, id, editMode, ...rest }) {
+function Product({title, desc, price, id, editMode, ...rest}) {
     return <>
         <Card className='product'  {...rest}>
             <CardBody>

@@ -13,8 +13,10 @@ function App() {
 
     return (
         <div className="App">
-            <nav className="">
-                <ul className="">
+            <h1>Hooks Commerce</h1>
+            <h4>Hook up for your products</h4>
+            <nav>
+                <ul>
                     <li><Link to="/">Products</Link></li>
                     <li><Link to="/create">Create products</Link></li>
                     <li><Link to="/edit">Edit Products</Link></li>
@@ -24,7 +26,7 @@ function App() {
             <Switch>
                 <Route exact path="/" component={ViewProducts}/>
                 <Route path="/create" component={CreateProducts}/>
-                <Route path="/edit"  render={(props) => <ViewProducts {...props} editMode />}/>
+                <Route path="/edit" render={(props) => <ViewProducts {...props} editMode/>}/>
                 <Route path="/products/edit/:id" component={EditProduct}/>
             </Switch>
         </div>

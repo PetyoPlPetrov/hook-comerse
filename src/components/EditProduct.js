@@ -67,20 +67,20 @@ function EditProduct(props) {
     useAlert({mergeState, successful, title, desc, price})
 
     return <Container>
-        <h1>Edit Product</h1>
+        <h1>Edit a Product</h1>
         <Form>
             <FormGroup>
-                <Label for="exampleEmail">Title</Label>
+                <Label>Title</Label>
                 <Input onChange={({target: {value: title}}) => mergeState({title})} value={title} type="text"
                        name="title" id="title" placeholder="Enter product title"/>
             </FormGroup>
             <FormGroup>
-                <Label for="exampleEmail">Description</Label>
+                <Label>Description</Label>
                 <Input onChange={({target: {value: desc}}) => mergeState({desc})} value={desc} type="text"
                        name="desc" id="desc" placeholder="Enter product description"/>
             </FormGroup>
             <FormGroup>
-                <Label for="exampleEmail">Price</Label>
+                <Label>Price</Label>
                 <Input onChange={({target: {value: price}}) => mergeState({price})} value={price} on type="text"
                        name="price" id="price" placeholder="Enter product price"/>
             </FormGroup>
