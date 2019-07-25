@@ -2,11 +2,11 @@ import {
     useEffect,
     useReducer
 } from 'react'
-import { productReducer } from '../reducers/'
+import { mainReducer } from '../reducers/'
 
 export const useProducts = () => {
     const initialProducts = JSON.parse(window.localStorage.getItem('products')) || []
-    const [products, dispatch] = useReducer(productReducer, initialProducts)
+    const [products, dispatch] = useReducer(mainReducer, initialProducts)
 
     useEffect(() => {
         window.localStorage.setItem('products', JSON.stringify(products))
